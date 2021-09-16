@@ -16,7 +16,6 @@ export default function App() {
     progress.value = withTiming(150, { duration: 1000 });
   }, [progress]);
 
-  console.log('on progess', progress.value);
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.container}>

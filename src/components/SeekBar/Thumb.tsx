@@ -48,22 +48,18 @@ export function Thumb({ progress }: ThumbProps) {
     const thumbPosition = useSharedValue(() => polarToCartesian(0));
     const gestureHandler = useAnimatedGestureHandler({
         onActive: (event, ctx) => {
-            console.log("active", event);
             let xOrigin = xCenter - (dialRadius + btnRadius);
             let yOrigin = yCenter - (dialRadius + btnRadius);
             let a = cartesianToPolar(
                 event.absoluteX - xOrigin,
                 event.absoluteY - yOrigin
             );
-            console.log('angle', a);
             if (a <= min) {
                 progress.value = min;
             } else if (a >= max) {
                 progress.value = max;
             } else {
                 progress.value = a;
-                console.log("gesture", a)
-                // setAngle(a);
             }
         },
     });

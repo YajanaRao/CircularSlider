@@ -23,7 +23,6 @@ function SeekPath({ progress }) {
 
     const getSeekPath = (progress) => {
         var endCoordPath = polarToCartesian(parseInt(progress));
-        console.log(parseInt(progress), endCoordPath);
         const path = `M${startCoord.x} ${startCoord.y} A ${dR} ${dR} 0 ${progress > 180 ? 1 : 0
             } 1 ${endCoordPath.x} ${endCoordPath.y}`;
         seekPath.value = path;

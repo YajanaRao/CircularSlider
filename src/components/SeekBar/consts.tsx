@@ -8,3 +8,5 @@ export const xCenter = Dimensions.get('window').width / 2, yCenter = Dimensions.
 export const dR = dialRadius;
 export const bR = btnRadius;
 export const min = 0, max = 359;
+
+

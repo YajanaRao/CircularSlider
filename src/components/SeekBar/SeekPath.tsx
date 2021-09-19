@@ -42,16 +42,12 @@ function SeekPath({ progress }) {
         };
     });
 
-
-
-
     return (
         <AnimatedPath
             stroke={meterColor}
             strokeWidth={dialWidth}
             fill="none"
             strokeLinecap="round"
-            // d={path}
             animatedProps={animatedProps}
         />
     )

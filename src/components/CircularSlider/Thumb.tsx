@@ -81,7 +81,7 @@ export function Thumb({ progress }: ThumbProps) {
 
     function getCircle(cx = thumbRadius, cy = thumbRadius) {
         let dx = 15, dy = -0;
-        return "M " + cx + " " + cy + "m " + dx + "," + dy + "a " + thumbRadius + "," + thumbRadius + " 0 1,0 " + -2 * dx + "," + -2 * dy + "a " + thumbRadius + "," + thumbRadius + " 0 1,0 " + 2 * dx + "," + 2 * dy;
+        return `M ${cx} ${cy}m ${dx},${dy}a ${thumbRadius},${thumbRadius} 0 1,0 ${-2 * dx},${-2 * dy}a ${thumbRadius},${thumbRadius}  0 1,0 ${2 * dx},${2 * dy}`;
     }
 
     return (

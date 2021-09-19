@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, View, StyleSheet } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import Animated, {
   useAnimatedProps,
@@ -7,42 +7,26 @@ import Animated, {
 } from 'react-native-reanimated';
 import SeekPath from './SeekPath';
 import { Thumb } from './Thumb';
+import { progressBarRadius, thumbRadius } from './consts';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-// https://github.com/bartgryszko/react-native-circular-slider/blob/master/src/CircularSlider.js
 interface Props {
-  btnRadius?: number;
-  dialRadius?: number;
-  dialWidth?: number;
-  meterColor?: string;
-  textColor?: string;
   fillColor?: string;
   strokeColor?: string;
   strokeWidth?: number;
-  textSize?: number;
   progress?: Animated.SharedValue<number>;
-  min?: number;
-  max?: number;
-  xCenter?: number;
-  yCenter?: number;
-  onValueChange?: (x: number) => number;
 }
 
 
 
 const CircleSlider = ({
-  btnRadius = 15,
-  dialRadius = 130,
-
   fillColor = 'none',
   strokeColor = '#fff',
   strokeWidth = 0.5,
   progress,
 }: Props) => {
-  const width = (dialRadius + btnRadius) * 2;
-  const bR = btnRadius;
-  const dR = dialRadius;
+  const width = (progressBarRadius + thumbRadius) * 2;
 
   const percentage = useDerivedValue(() => {
     return parseInt((progress.value / 360) * 100).toString();
@@ -56,10 +40,10 @@ const CircleSlider = ({
 
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <Svg width={width} height={width}>
         <Circle
-          r={dR}
+          r={progressBarRadius}
           cx={width / 2}
           cy={width / 2}
           stroke={strokeColor}
@@ -67,17 +51,11 @@ const CircleSlider = ({
           fill={fillColor}
         />
         <AnimatedTextInput
-          // x={width / 2}
-          // y={width / 1.65}
-          // fontSize={100}
-          // fontWeight={'bold'}
-          // fill={'#A9A9A9'}
-          // fontFamily="robot"
           underlineColorAndroid="transparent"
           editable={false}
-          style={{
-            color: '#A9A9A9', fontSize: 100, fontWeight: 'bold', fontFamily: 'Roboto', transform: [{ translateX: width / 3.7 }, { translateY: width / 4 }]
-          }}
+          style={[{
+            transform: [{ translateX: width / 3.7 }, { translateY: width / 4 }]
+          }, styles.progressText]}
           animatedProps={animatedProps}
           value={percentage.value}
         />
@@ -89,5 +67,10 @@ const CircleSlider = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  progressText: { color: '#A9A9A9', fontSize: 100, fontWeight: 'bold', fontFamily: 'Roboto', }
+})
 
 export default CircleSlider;

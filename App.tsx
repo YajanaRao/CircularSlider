@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
 // You can import from local files
-import CircularProgress from './src/components/SeekBar';
+import CircularSlider from './src/components/CircularSlider';
 
 Animated.addWhitelistedNativeProps({ text: true });
 
@@ -13,17 +13,14 @@ export default function App() {
   const progress = useSharedValue(0);
 
   React.useEffect(() => {
-    progress.value = withTiming(150, { duration: 1000 });
+    progress.value = withTiming(percentage / 100 * 360, { duration: 1000 });
   }, [progress]);
 
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.container}>
-        <CircularProgress
-          min={0}
-          max={359}
+        <CircularSlider
           progress={progress}
-          meterColor="#53D5BA"
           strokeColor="#1A2B29"
           strokeWidth={15}
         />

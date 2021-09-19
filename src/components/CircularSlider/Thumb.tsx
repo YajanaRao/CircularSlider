@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { useAnimatedGestureHandler, useAnimatedProps, useDerivedValue, useSharedValue, runOnJS } from 'react-native-reanimated';
 import { Path } from 'react-native-svg';
-import { bR, btnRadius, dialRadius, max, min, xCenter, yCenter } from './consts';
+import { thumbRadius, progressBarRadius, xCenter, yCenter } from './consts';
 
 export interface ThumbProps {
     progress: Animated.SharedValue<number>
@@ -14,7 +14,7 @@ export function Thumb({ progress }: ThumbProps) {
 
     const cartesianToPolar = React.useCallback(
         (x, y) => {
-            let hC = dialRadius + btnRadius;
+            let hC = progressBarRadius + thumbRadius;
 
             if (x === 0) {
                 return y > hC ? 0 : 180;
@@ -27,28 +27,28 @@ export function Thumb({ progress }: ThumbProps) {
                 );
             }
         },
-        [dialRadius, btnRadius]
+        [progressBarRadius, thumbRadius]
     );
 
     const polarToCartesian = React.useCallback(
         (angle) => {
-            let r = dialRadius;
-            let hC = dialRadius + btnRadius;
+            let r = progressBarRadius;
+            let hC = progressBarRadius + thumbRadius;
             let a = ((angle - 90) * Math.PI) / 180.0;
 
             let x = hC + r * Math.cos(a);
             let y = hC + r * Math.sin(a);
             return { x, y };
         },
-        [dialRadius, btnRadius]
+        [progressBarRadius, thumbRadius]
     );
 
-    const thumbPosition = useSharedValue(`M ${bR} ${bR}m 15,0a 15,15 0 1,0 -30,0a 15,15 0 1,0 30,0`);
+    const thumbPosition = useSharedValue(`M ${thumbRadius} ${thumbRadius}m 15,0a 15,15 0 1,0 -30,0a 15,15 0 1,0 30,0`);
 
 
     function updateThumbPosition(event) {
-        let xOrigin = xCenter - (dialRadius + btnRadius);
-        let yOrigin = yCenter - (dialRadius + btnRadius);
+        let xOrigin = xCenter - (progressBarRadius + thumbRadius);
+        let yOrigin = yCenter - (progressBarRadius + thumbRadius);
         let a = cartesianToPolar(
             event.absoluteX - xOrigin,
             event.absoluteY - yOrigin
@@ -79,9 +79,9 @@ export function Thumb({ progress }: ThumbProps) {
         };
     });
 
-    function getCircle(cx = bR, cy = bR) {
+    function getCircle(cx = thumbRadius, cy = thumbRadius) {
         let dx = 15, dy = -0;
-        return "M " + cx + " " + cy + "m " + dx + "," + dy + "a " + bR + "," + bR + " 0 1,0 " + -2 * dx + "," + -2 * dy + "a " + bR + "," + bR + " 0 1,0 " + 2 * dx + "," + 2 * dy;
+        return "M " + cx + " " + cy + "m " + dx + "," + dy + "a " + thumbRadius + "," + thumbRadius + " 0 1,0 " + -2 * dx + "," + -2 * dy + "a " + thumbRadius + "," + thumbRadius + " 0 1,0 " + 2 * dx + "," + 2 * dy;
     }
 
     return (

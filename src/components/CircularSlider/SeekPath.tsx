@@ -12,19 +12,6 @@ const circleLength = progressBarRadius * 2 * Math.PI;
 function SeekPath({ progress }) {
     const width = (progressBarRadius + thumbRadius) * 2;
 
-    const polarToCartesian = React.useCallback(
-        (angle) => {
-            let r = progressBarRadius;
-            let hC = progressBarRadius + thumbRadius;
-            let a = ((angle - 90) * Math.PI) / 180.0;
-
-            let x = hC + r * Math.cos(a);
-            let y = hC + r * Math.sin(a);
-            return { x, y };
-        },
-        [progressBarRadius, thumbRadius]
-    );
-
     const getSeekPath = (progress) => {
         // var endCoordPath = polarToCartesian(parseInt(progress));
         // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d
@@ -33,7 +20,6 @@ function SeekPath({ progress }) {
     }
 
 
-    const startCoord = polarToCartesian(0);
     // (M) move to (X, Y) (A) arc (rx ry, angle, 1 for large arc 0 for small arc, 1 for clock wise turing arc, (x, y) end coordinates ) 
     // const seekPath = useSharedValue(`M${startCoord.x} ${startCoord.y} A ${progressBarRadius} ${thumbRadius} 0 0 1 ${startCoord.x} ${startCoord.y}`);
     const seekPath = useSharedValue(0);

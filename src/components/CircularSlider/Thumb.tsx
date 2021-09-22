@@ -68,6 +68,7 @@ export function Thumb({ progress }: ThumbProps) {
     }
 
 
+    // runOnJs will effect performance
     useDerivedValue(() => {
         runOnJS(getThumbPosition)(progress.value);
     })

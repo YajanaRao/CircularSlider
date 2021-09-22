@@ -28,3 +28,11 @@ yarn ios
 ### react-native-reanimated
 ### react-native-gesture-handler
 ### react-native-svg
+
+## Issue
+
+- curve 
+
+- 25 - 
+- 50 - 
+- runOnJS
